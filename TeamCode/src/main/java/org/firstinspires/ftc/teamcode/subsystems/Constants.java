@@ -13,7 +13,7 @@ public class Constants {
     public static double X_POD_OFFSET = 1.25; //inches
     public static double Y_POD_OFFSET = -7; //inches
 
-    public static double waitTime = 2.0;
+    public static double waitTime = 1.0;
 
  /*   public double kP = 0.0001;
     public double kD = 0.0;
@@ -30,21 +30,21 @@ public static double turretAimKP = 0.00065;
     public static final double TurretMin = 0.0;
 
     public static double LIFT_TIME = 0.13;
-    public static double TIME_BETWEEN_SHOTS = 0.25; // was 0.2, 0.25, 0.3
+    public static double TIME_BETWEEN_SHOTS = 0.5; // was 0.2, 0.25, 0.3
 
-    public static double LAUNCHER_TARGET_VELOCITY = 2450;
-    public static double LAUNCHER_MIN_VELOCITY = 1000;
+    public static double LAUNCHER_TARGET_VELOCITY = 1700;
+    public static double LAUNCHER_MIN_VELOCITY = 1680;
 
-    public static double FAR_LAUNCH_POWER = 2600;
-    public static double FAR_MIN_VELOCITY = 2580; //MAKE THIS 20rpm LESS THAN ABOVE
+    public static double FAR_LAUNCH_POWER = 1800;
+    public static double FAR_MIN_VELOCITY = 1789; //MAKE THIS 20rpm LESS THAN ABOVE
     public static double CLOSE_LAUNCH_POWER = 1370;
     public static double CLOSE_MIN_VELOCITY = 1350;
 
-    public static double MID_LAUNCH_POWER = 2450;
-    public static double MID_MIN_VELOCITY = 2430; //MAKE THIS 20rpm LESS THAN ABOVE
+    public static double MID_LAUNCH_POWER = 1750;
+    public static double MID_MIN_VELOCITY = 1730; //MAKE THIS 20rpm LESS THAN ABOVE
 
-    public static double TELE_CLOSE_LAUNCH = 2410;
-    public static double TELE_CLOSE_MIN_LAUNCH = 2390;// MAKE THIS 20rpm LESS THAN ABOVE
+    public static double TELE_CLOSE_LAUNCH = 1700;
+    public static double TELE_CLOSE_MIN_LAUNCH = 1680;// MAKE THIS 20rpm LESS THAN ABOVE
 
     public static double MAX_LAUNCH_POWER = 2000;
 
@@ -52,7 +52,7 @@ public static double turretAimKP = 0.00065;
     public static double nearestBase = 3.0;
     public static double farthestBase = 9.75;
 
-    public static double LaunchPower = 2450;
+    public static double LaunchPower = 1640;
     public static double TICKS_PER_REV = 28;
 
     public static double INTAKE_TARGET_VELOCITY = 2000;
@@ -114,7 +114,7 @@ public static double turretAimKP = 0.00065;
 
     // UP
     public static double RED_UP_START_X = 0;
-    public static double RED_UP_START_Y = 824;
+    public static double RED_UP_START_Y = 400;
     public static double RED_UP_START_H = 180;
 
     public static double RED_UP_SHOOT_X = 0;
@@ -125,6 +125,18 @@ public static double turretAimKP = 0.00065;
     public static double RED_UP_MIDPOINT_Y = 1180;
     public static double RED_UP_MIDPOINT_H = 180;
 
+    public static double RED_UP_BACKUP_X = 415;
+    public static double RED_UP_BACKUP_Y = -388;
+    public static double RED_UP_BACKUP_H = 180;
+
+    public static double RED_UP_STRAFE_X = 267;
+    public static double RED_UP_STRAFE_Y = 1542;
+    public static double RED_UP_STRAFE_H = 180;
+
+    public static double RED_UP_GARDEN_X = 22;
+    public static double RED_UP_GARDEN_Y = 1599;
+    public static double RED_UP_GARDEN_H = 180;
+
     public static double RED_UP_PARK_X = 2146;
     public static double RED_UP_PARK_Y = 1443;
     public static double RED_UP_PARK_H = 180;
@@ -134,9 +146,9 @@ public static double turretAimKP = 0.00065;
     public static double RED_DOWN_START_Y = 1791;
     public static double RED_DOWN_START_H = 0;
 
-    public static double RED_DOWN_SHOOT_X = 3676;
-    public static double RED_DOWN_SHOOT_Y = -558;
-    public static double RED_DOWN_SHOOT_H = -45.0;
+    public static double RED_DOWN_SHOOT_X = 3071;
+    public static double RED_DOWN_SHOOT_Y = 10;
+    public static double RED_DOWN_SHOOT_H = 0;
 
     public static double RED_DOWN_PARK_X = 2871;
     public static double RED_DOWN_PARK_Y = 2300;

@@ -17,9 +17,11 @@ import org.firstinspires.ftc.teamcode.subsystems.PinpointDrive;
 import org.firstinspires.ftc.teamcode.subsystems.PoseStorage;
 
 @Autonomous(name="Up Shoot", group="Red")
-@Disabled
 
 public class RedUpShoot extends OpMode {
+
+   // private LauncherSubsystemRookieBot launcherSubsystemRookieBot;
+
 
     private PinpointDrive autoDrive = null;
     private GoBildaPinpointDriver pinpoint = null;
@@ -38,9 +40,13 @@ public class RedUpShoot extends OpMode {
 
     private enum AutoState {
         POWER_UP,
-        SHOOT_ALIGN,
+        SHOOT_ALIGN_UP,
+        SHOOT_ALIGN_DOWN,
         SHOOT,
         SHOT_COUNT,
+        BACKUP,
+        STRAFE,
+        GARDEN,
         MIDPOINT,
         PARK,
         WAIT,
@@ -48,6 +54,8 @@ public class RedUpShoot extends OpMode {
 
     private AutoState autoState;
     private AutoState returnState;
+
+    private AutoState shootState;
     //private static final FieldManager panelsField = PanelsField.INSTANCE.getField();
     private void checkStuck(AutoState nextState){
         if(stuckTimer.seconds() > 0.5){
@@ -80,9 +88,13 @@ public class RedUpShoot extends OpMode {
         pinpoint.update();
 
         autoState = AutoState.POWER_UP;
-        returnState = AutoState.PARK;
+        returnState = AutoState.BACKUP;
+        shootState = AutoState.BACKUP;
 
         launcherSubsystem = new LauncherSubsystemRookieBot(hardwareMap);
+
+        launcherSubsystem.liftDownLeft();
+        launcherSubsystem.liftDownRight();
     }
 
     @Override
@@ -121,7 +133,7 @@ public class RedUpShoot extends OpMode {
 
 
         //-------------------------------SHOOTING------------------------
-        if (autoState == AutoState.SHOOT_ALIGN) {
+        if (autoState == AutoState.SHOOT_ALIGN_UP) {
             // double targetHeading = autoDrive.getHeadingToGoal(curX, curY, RED_GOAL_X, RED_GOAL_Y);
             //telemetry.addData("DEBUG Target Heading", "%.1f", targetHeading);
             //telemetry.addData("DEBUG Current H", "%.1f", curH);
@@ -130,15 +142,26 @@ public class RedUpShoot extends OpMode {
         switch (autoState) {
             case POWER_UP:
                 launcherSubsystem.setLauncherVelocity(LAUNCHER_TARGET_VELOCITY);
-                shotsToFire = 3;
-                launchTimer.reset();
-                autoState = AutoState.SHOOT;
+               shotsToFire = 2;
+               launchTimer.reset();
+              autoState = AutoState.WAIT;
                 break;
 
-            case SHOOT_ALIGN:
+            case SHOOT_ALIGN_UP:
                 if (autoDrive.runToPosition(curX,curY,curH,RED_UP_SHOOT_X,RED_UP_SHOOT_Y,RED_UP_SHOOT_H, driveSpeedSlow, rotateSpeed)){
-                    launcherSubsystem.setLauncherVelocity(LAUNCHER_TARGET_VELOCITY);
-                    launcherSubsystem.setIntakeVelocity(INTAKE_TARGET_VELOCITY);
+                   // launcherSubsystem.setLauncherVelocity(LAUNCHER_TARGET_VELOCITY);
+                    //launcherSubsystem.setIntakeVelocity(INTAKE_TARGET_VELOCITY);\
+                    returnState = AutoState.BACKUP;
+                    autoState = AutoState.SHOOT;
+                }
+                checkStuck(AutoState.SHOOT);
+                break;
+
+            case SHOOT_ALIGN_DOWN:
+                if (autoDrive.runToPosition(curX,curY,curH,RED_DOWN_SHOOT_X,RED_DOWN_SHOOT_Y,RED_DOWN_SHOOT_H, driveSpeedSlow, rotateSpeed)){
+                    // launcherSubsystem.setLauncherVelocity(LAUNCHER_TARGET_VELOCITY);
+                    //launcherSubsystem.setIntakeVelocity(INTAKE_TARGET_VELOCITY);
+                    returnState = AutoState.PARK;
                     autoState = AutoState.SHOOT;
                 }
                 checkStuck(AutoState.SHOOT);
@@ -147,12 +170,16 @@ public class RedUpShoot extends OpMode {
             case SHOOT:
                 if(launcherSubsystem.isLauncherReady() && launchTimer.seconds() > TIME_BETWEEN_SHOTS){
                     feederTimer.reset();
+                    launcherSubsystem.liftUpLeft();
+                    launcherSubsystem.liftUpRight();
                     autoState = AutoState.SHOT_COUNT;
                 }
                 break;
 
             case SHOT_COUNT:
                 if(feederTimer.seconds() > LIFT_TIME){
+                    launcherSubsystem.liftDownLeft();
+                    launcherSubsystem.liftDownRight();
                     shotsToFire--;
 
                     if (shotsToFire > 0) {
@@ -166,11 +193,33 @@ public class RedUpShoot extends OpMode {
                 }
                 break;
 
+            //----------------------------BACKUP------------------
+            case BACKUP:
+                if (autoDrive.runToPosition(curX, curY, curH, RED_UP_BACKUP_X, RED_UP_BACKUP_Y, RED_UP_BACKUP_H, driveSpeedSlow, rotateSpeed)) {
+                    autoState = AutoState.STRAFE;
+                }
+                break;
+
+            //----------------------------STRAFE------------------
+            case STRAFE:
+                if (autoDrive.runToPosition(curX, curY, curH, RED_UP_STRAFE_X, RED_UP_STRAFE_Y, RED_UP_STRAFE_H, driveSpeedSlow, rotateSpeed)) {
+                    launcherSubsystem.setIntakeVelocity(INTAKE_TARGET_VELOCITY);
+                    autoState = AutoState.GARDEN;
+                }
+                break;
+
+            //----------------------------GARDEN------------------
+            case GARDEN:
+                if (autoDrive.runToPosition(curX, curY, curH, RED_UP_GARDEN_X, RED_UP_GARDEN_Y, RED_UP_GARDEN_H, driveSpeedSlow, rotateSpeed)) {
+                    autoState = AutoState.MIDPOINT;
+                }
+                break;
+
             //----------------------------MIDPOINT------------------
 
             case MIDPOINT:
                 if (autoDrive.runToPosition(curX, curY, curH, RED_UP_MIDPOINT_X, RED_UP_MIDPOINT_Y, RED_UP_MIDPOINT_H, driveSpeedSlow, rotateSpeed)) {
-                    autoState = AutoState.PARK;
+                    autoState = AutoState.SHOOT_ALIGN_DOWN;
                 }
                 break;
 
