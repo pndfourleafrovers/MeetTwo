@@ -65,6 +65,20 @@ public static double turretAimKP = 0.00065;
     public static double rotateSpeed = 0.4;
     public static double odoSlowSpeedMultiple = 0.47;
 
+    public static double Kp = 0.03;
+    public static double TOLERANCE_MM = 15.0;
+    public static double MIN_POWER = 0.12;
+    public static double TOLERANCE_DEGREES = 2.0;
+
+    public static double DRIVE_P = 0.00071; //  applies power based on distance - increase until bot moves past target
+    public static double DRIVE_D = 0.00008; // applies brakes to slow down approach - helps prevent wobbling - increase if overshoots, decrease if vibrates
+
+    public static double STRAFE_P = 0.0015; //
+    public static double STRAFE_D = 0.0001; //
+
+    public static double TURN_P = 0.00054; //applies power based on distance
+    public static double TURN_D = 0.00023;
+
     public static double redBearingOffset = 0.0;
     public static double blueBearingOffset = -2.5;
 
@@ -125,16 +139,16 @@ public static double turretAimKP = 0.00065;
     public static double RED_UP_MIDPOINT_Y = 1180;
     public static double RED_UP_MIDPOINT_H = 180;
 
-    public static double RED_UP_BACKUP_X = 415;
-    public static double RED_UP_BACKUP_Y = -388;
+    public static double RED_UP_BACKUP_X = 567;
+    public static double RED_UP_BACKUP_Y = 388;
     public static double RED_UP_BACKUP_H = 180;
 
-    public static double RED_UP_STRAFE_X = 267;
-    public static double RED_UP_STRAFE_Y = 1542;
+    public static double RED_UP_STRAFE_X = 557;
+    public static double RED_UP_STRAFE_Y = 1577;
     public static double RED_UP_STRAFE_H = 180;
 
-    public static double RED_UP_GARDEN_X = 22;
-    public static double RED_UP_GARDEN_Y = 1599;
+    public static double RED_UP_GARDEN_X = 13;
+    public static double RED_UP_GARDEN_Y = 1588;
     public static double RED_UP_GARDEN_H = 180;
 
     public static double RED_UP_PARK_X = 2146;

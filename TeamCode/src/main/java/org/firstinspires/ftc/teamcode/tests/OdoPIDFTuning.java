@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.subsystems.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.subsystems.PinpointDrive;
+import static org.firstinspires.ftc.teamcode.subsystems.Constants.*;
 
 @TeleOp(name="Drive Tuning All Axes", group="Tuning")
 @Disabled
@@ -81,16 +82,16 @@ public class OdoPIDFTuning extends OpMode {
 
         if (currentMode == Mode.TUNING_DRIVE) {
             // Adjust DRIVE_P / DRIVE_D
-            if (gamepad1.dpad_up && !lastUp)     PinpointDrive.DRIVE_P += stepSizes[stepIndex];
-            if (gamepad1.dpad_down && !lastDown) PinpointDrive.DRIVE_P -= stepSizes[stepIndex];
-            if (gamepad1.dpad_right && !lastRight) PinpointDrive.DRIVE_D += stepSizes[stepIndex];
-            if (gamepad1.dpad_left && !lastLeft)   PinpointDrive.DRIVE_D -= stepSizes[stepIndex];
+            if (gamepad1.dpad_up && !lastUp)    DRIVE_P += stepSizes[stepIndex];
+            if (gamepad1.dpad_down && !lastDown) DRIVE_P -= stepSizes[stepIndex];
+            if (gamepad1.dpad_right && !lastRight) DRIVE_D += stepSizes[stepIndex];
+            if (gamepad1.dpad_left && !lastLeft)   DRIVE_D -= stepSizes[stepIndex];
         } else {
             // Adjust TURN_P / TURN_D
-            if (gamepad1.dpad_up && !lastUp)     PinpointDrive.TURN_P += stepSizes[stepIndex];
-            if (gamepad1.dpad_down && !lastDown) PinpointDrive.TURN_P -= stepSizes[stepIndex];
-            if (gamepad1.dpad_right && !lastRight) PinpointDrive.TURN_D += stepSizes[stepIndex];
-            if (gamepad1.dpad_left && !lastLeft)   PinpointDrive.TURN_D -= stepSizes[stepIndex];
+            if (gamepad1.dpad_up && !lastUp)     TURN_P += stepSizes[stepIndex];
+            if (gamepad1.dpad_down && !lastDown) TURN_P -= stepSizes[stepIndex];
+            if (gamepad1.dpad_right && !lastRight) TURN_D += stepSizes[stepIndex];
+            if (gamepad1.dpad_left && !lastLeft)   TURN_D -= stepSizes[stepIndex];
         }
         // Update latches
         lastUp = gamepad1.dpad_up; lastDown = gamepad1.dpad_down;
@@ -154,11 +155,11 @@ public class OdoPIDFTuning extends OpMode {
         telemetry.addLine("--------------------------");
 
         if (currentMode == Mode.TUNING_DRIVE) {
-            telemetry.addData("DRIVE P", "%.5f", PinpointDrive.DRIVE_P);
-            telemetry.addData("DRIVE D", "%.5f", PinpointDrive.DRIVE_D);
+            telemetry.addData("DRIVE P", "%.5f", DRIVE_P);
+            telemetry.addData("DRIVE D", "%.5f", DRIVE_D);
         } else {
-            telemetry.addData("TURN P", "%.5f", PinpointDrive.TURN_P);
-            telemetry.addData("TURN D", "%.5f", PinpointDrive.TURN_D);
+            telemetry.addData("TURN P", "%.5f", TURN_P);
+            telemetry.addData("TURN D", "%.5f", TURN_D);
         }
 
         telemetry.addLine("--------------------------");

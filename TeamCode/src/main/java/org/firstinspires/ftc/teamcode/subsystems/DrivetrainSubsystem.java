@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.teamcode.subsystems.Constants.*;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -24,10 +25,10 @@ public class DrivetrainSubsystem {
      * @param speed The maximum power (0.0 to 1.0) allowed for the turn.
      * @return True when movement is complete (within tolerance).
      */
-    private final double Kp = 0.03; // Proportional Gain: Adjusts power based on error.
-    private final double MIN_POWER = 0.12; // Minimum power to overcome static friction.
-    private final double TOLERANCE_MM = 15.0; // Stop when within 15mm of target.
-    private final double TOLERANCE_DEGREES = 2.0;
+    //public double Kp = 0.03; // Proportional Gain: Adjusts power based on error.
+    //private final double MIN_POWER = 0.12; // Minimum power to overcome static friction.
+   // private final double TOLERANCE_MM = 15.0; // Stop when within 15mm of target.
+   // private final double TOLERANCE_DEGREES = 2.0;
 
     public boolean runOdometryTurnToAngle(double currentHeadingRadians, double targetAngleDegrees, double speed) {
         // 1. Convert current heading from radians to degrees

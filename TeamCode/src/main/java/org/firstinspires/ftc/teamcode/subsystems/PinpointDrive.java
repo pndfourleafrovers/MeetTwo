@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import static org.firstinspires.ftc.teamcode.subsystems.Constants.*;
+
 public class PinpointDrive {
 
     private DcMotorEx FrontLeft, RearLeft, FrontRight, RearRight;
@@ -27,14 +29,14 @@ public class PinpointDrive {
     public static double SINY = 1;
 
     //PID Tuning
-    public static double DRIVE_P = 0.00071; // 0.0015, 0.0017, 0.0020, 0.0015, 0.0017, 0.0018, 0.001755 applies power based on distance - increase until bot moves past target
+    /*public static double DRIVE_P = 0.00071; // 0.0015, 0.0017, 0.0020, 0.0015, 0.0017, 0.0018, 0.001755 applies power based on distance - increase until bot moves past target
     public static double DRIVE_D = 0.00008; //was 0.002, 0.0001, 0.0002, 0.00009, 0.00005 applies brakes to slow down approach - helps prevent wobbling - increase if overshoots, decrease if vibrates
 
     public static double STRAFE_P = 0.0012; //
     public static double STRAFE_D = 0.0001; //
 
     public static double TURN_P = 0.00054; //0.02 applies power based on distance
-    public static double TURN_D = 0.00023; //0.01 applies brakes to slow down approach - helps prevent wobbling
+    public static double TURN_D = 0.00023; */ //0.01 applies brakes to slow down approach - helps prevent wobbling
 
 
 

@@ -88,8 +88,8 @@ public class RedUpShoot extends OpMode {
         pinpoint.update();
 
         autoState = AutoState.POWER_UP;
-        returnState = AutoState.BACKUP;
-        shootState = AutoState.BACKUP;
+        returnState = AutoState.SHOOT;
+        shootState = AutoState.STRAFE;
 
         launcherSubsystem = new LauncherSubsystemRookieBot(hardwareMap);
 
@@ -188,7 +188,7 @@ public class RedUpShoot extends OpMode {
                     } else {
                         autoDrive.stop();
                         launcherSubsystem.setIntakeVelocity(0);
-                        autoState = returnState;
+                        autoState = shootState;
                     }
                 }
                 break;
@@ -202,7 +202,8 @@ public class RedUpShoot extends OpMode {
 
             //----------------------------STRAFE------------------
             case STRAFE:
-                if (autoDrive.runToPosition(curX, curY, curH, RED_UP_STRAFE_X, RED_UP_STRAFE_Y, RED_UP_STRAFE_H, driveSpeedSlow, rotateSpeed)) {
+                if (autoDrive.runToPosition(curX, curY, curH, RED_UP_STRAFE_X, RED_UP_STRAFE_Y, RED_UP_STRAFE_H, driveSpeed, rotateSpeed)) {
+                    waitTimer.reset();
                     launcherSubsystem.setIntakeVelocity(INTAKE_TARGET_VELOCITY);
                     autoState = AutoState.GARDEN;
                 }
@@ -211,7 +212,8 @@ public class RedUpShoot extends OpMode {
             //----------------------------GARDEN------------------
             case GARDEN:
                 if (autoDrive.runToPosition(curX, curY, curH, RED_UP_GARDEN_X, RED_UP_GARDEN_Y, RED_UP_GARDEN_H, driveSpeedSlow, rotateSpeed)) {
-                    autoState = AutoState.MIDPOINT;
+                    returnState = AutoState.MIDPOINT;
+                    autoState = AutoState.WAIT;
                 }
                 break;
 
@@ -242,20 +244,20 @@ public class RedUpShoot extends OpMode {
         }
 
         // Debug: show errors and commands
-        double xErr = RED_UP_MIDPOINT_X - curX;
-        double yErr = RED_UP_MIDPOINT_Y - curY;
-        double hErr = RED_UP_MIDPOINT_H - Math.toDegrees(curH);
+        double xErr = RED_UP_STRAFE_X - curX;
+        double yErr = RED_UP_STRAFE_Y - curY;
+        double hErr = RED_UP_STRAFE_H - Math.toDegrees(curH);
         while (hErr > 180) hErr -= 360;
         while (hErr <= -180) hErr += 360;
 
         Pose2D pos = pinpoint.getPosition();
         telemetry.addData("AutoState", autoState);
-        telemetry.addData("X", "%.1f → %.1f (err: %.1f)", curX, RED_UP_MIDPOINT_X, xErr);
-        telemetry.addData("Y (scaled)", "%.1f → %.1f (err: %.1f)", curY, RED_UP_MIDPOINT_Y, yErr);
-        telemetry.addData("X (scaled)", "%.1f → %.1f (err: %.1f)", curX, RED_UP_MIDPOINT_X, xErr);
+       // telemetry.addData("X", "%.1f → %.1f (err: %.1f)", curX, RED_UP_STRAFE_X, xErr);
+        telemetry.addData("Y (scaled)", "%.1f → %.1f (err: %.1f)", curY, RED_UP_STRAFE_Y, yErr);
+        telemetry.addData("X (scaled)", "%.1f → %.1f (err: %.1f)", curX, RED_UP_STRAFE_X, xErr);
 
         telemetry.addData("Y (raw)", "%.1f", rawY);
-        telemetry.addData("H", "%.1f → %.1f (err: %.1f)", Math.toDegrees(curH), RED_UP_MIDPOINT_H, hErr);
+        telemetry.addData("H", "%.1f → %.1f (err: %.1f)", Math.toDegrees(curH), RED_UP_STRAFE_H, hErr);
         telemetry.update();
     }
 

@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.subsystems.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.subsystems.PinpointDrive;
+import static org.firstinspires.ftc.teamcode.subsystems.Constants.*;
 
 /**
  * PID Tuning Tool for Pinpoint Drive
@@ -288,12 +289,12 @@ public class pid_tuner extends OpMode {
     }
 
     private void updateDrivePIDValues() {
-        PinpointDrive.DRIVE_P = currentDriveP;
-        PinpointDrive.DRIVE_D = currentDriveD;
-        PinpointDrive.STRAFE_P = currentStrafeP;
-        PinpointDrive.STRAFE_D = currentStrafeD;
-        PinpointDrive.TURN_P = currentTurnP;
-        PinpointDrive.TURN_D = currentTurnD;
+       DRIVE_P = currentDriveP;
+        DRIVE_D = currentDriveD;
+        STRAFE_P = currentStrafeP;
+       STRAFE_D = currentStrafeD;
+        TURN_P = currentTurnP;
+        TURN_D = currentTurnD;
     }
 
     private void startTest(double curX, double curY, double curH) {
