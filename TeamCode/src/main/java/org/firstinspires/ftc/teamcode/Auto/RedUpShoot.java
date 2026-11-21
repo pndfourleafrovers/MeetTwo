@@ -120,7 +120,6 @@ public class RedUpShoot extends OpMode {
     }
 
 
-
     @Override
     public void loop(){
         pinpoint.update();
@@ -158,13 +157,15 @@ public class RedUpShoot extends OpMode {
                 break;
 
             case SHOOT_ALIGN_DOWN:
-                if (autoDrive.runToPosition(curX,curY,curH,RED_DOWN_SHOOT_X,RED_DOWN_SHOOT_Y,RED_DOWN_SHOOT_H, driveSpeedSlow, rotateSpeed)){
+                if (autoDrive.runToPosition(curX,curY,curH,RED_DOWN_SHOOT_X,RED_DOWN_SHOOT_Y,RED_DOWN_SHOOT_H, driveSpeed, rotateSpeed)){
                     // launcherSubsystem.setLauncherVelocity(LAUNCHER_TARGET_VELOCITY);
                     //launcherSubsystem.setIntakeVelocity(INTAKE_TARGET_VELOCITY);
-                    returnState = AutoState.PARK;
-                    autoState = AutoState.SHOOT;
+                    waitTimer.reset();
+                    shotsToFire = 2;
+                    returnState = AutoState.SHOOT;
+                    shootState = AutoState.PARK;
+                    autoState = AutoState.WAIT;
                 }
-                checkStuck(AutoState.SHOOT);
                 break;
 
             case SHOOT:
@@ -205,8 +206,10 @@ public class RedUpShoot extends OpMode {
                 if (autoDrive.runToPosition(curX, curY, curH, RED_UP_STRAFE_X, RED_UP_STRAFE_Y, RED_UP_STRAFE_H, driveSpeed, rotateSpeed)) {
                     waitTimer.reset();
                     launcherSubsystem.setIntakeVelocity(INTAKE_TARGET_VELOCITY);
-                    autoState = AutoState.GARDEN;
+                    returnState = AutoState.MIDPOINT;
+                    autoState = AutoState.WAIT;
                 }
+                checkStuck(AutoState.WAIT);
                 break;
 
             //----------------------------GARDEN------------------
@@ -220,9 +223,10 @@ public class RedUpShoot extends OpMode {
             //----------------------------MIDPOINT------------------
 
             case MIDPOINT:
-                if (autoDrive.runToPosition(curX, curY, curH, RED_UP_MIDPOINT_X, RED_UP_MIDPOINT_Y, RED_UP_MIDPOINT_H, driveSpeedSlow, rotateSpeed)) {
+                if (autoDrive.runToPosition(curX, curY, curH, RED_UP_MIDPOINT_X, RED_UP_MIDPOINT_Y, RED_UP_MIDPOINT_H, driveSpeed, rotateSpeed)) {
                     autoState = AutoState.SHOOT_ALIGN_DOWN;
                 }
+                checkStuck(AutoState.SHOOT_ALIGN_DOWN);
                 break;
 
             //---------------------------------PAUSE---------------------
@@ -234,7 +238,7 @@ public class RedUpShoot extends OpMode {
 
             //------------------------------END-------------------------
             case PARK:
-                if (autoDrive.runToPosition(curX, curY, curH, RED_UP_PARK_X, RED_UP_PARK_Y, RED_UP_PARK_H, driveSpeedSlow, rotateSpeed)) {
+                if (autoDrive.runToPosition(curX, curY, curH, RED_DOWN_PARK_X, RED_DOWN_PARK_Y, RED_DOWN_PARK_H, driveSpeed, rotateSpeed)) {
                     autoDrive.stop();
                     PoseStorage.currentX = curX;
                     PoseStorage.currentY = curY;

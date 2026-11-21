@@ -13,7 +13,7 @@ public class Constants {
     public static double X_POD_OFFSET = 1.25; //inches
     public static double Y_POD_OFFSET = -7; //inches
 
-    public static double waitTime = 1.0;
+    public static double waitTime = 3.5;
 
  /*   public double kP = 0.0001;
     public double kD = 0.0;
@@ -76,7 +76,7 @@ public static double turretAimKP = 0.00065;
     public static double STRAFE_P = 0.0015; //
     public static double STRAFE_D = 0.0001; //
 
-    public static double TURN_P = 0.00054; //applies power based on distance
+    public static double TURN_P = 0.1; //applies power based on distance
     public static double TURN_D = 0.00023;
 
     public static double redBearingOffset = 0.0;
@@ -135,8 +135,8 @@ public static double turretAimKP = 0.00065;
     public static double RED_UP_SHOOT_Y = -403;
     public static double RED_UP_SHOOT_H = 180;
 
-    public static double RED_UP_MIDPOINT_X = 1543;
-    public static double RED_UP_MIDPOINT_Y = 1180;
+    public static double RED_UP_MIDPOINT_X = 2194;
+    public static double RED_UP_MIDPOINT_Y = 954;
     public static double RED_UP_MIDPOINT_H = 180;
 
     public static double RED_UP_BACKUP_X = 567;
@@ -147,7 +147,7 @@ public static double turretAimKP = 0.00065;
     public static double RED_UP_STRAFE_Y = 1577;
     public static double RED_UP_STRAFE_H = 180;
 
-    public static double RED_UP_GARDEN_X = 13;
+    public static double RED_UP_GARDEN_X = 5;
     public static double RED_UP_GARDEN_Y = 1588;
     public static double RED_UP_GARDEN_H = 180;
 
@@ -164,8 +164,8 @@ public static double turretAimKP = 0.00065;
     public static double RED_DOWN_SHOOT_Y = 10;
     public static double RED_DOWN_SHOOT_H = 0;
 
-    public static double RED_DOWN_PARK_X = 2871;
-    public static double RED_DOWN_PARK_Y = 2300;
+    public static double RED_DOWN_PARK_X = 2925;
+    public static double RED_DOWN_PARK_Y = 1216;
     public static double RED_DOWN_PARK_H = 0;
 
 }
