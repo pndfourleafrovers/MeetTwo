@@ -55,7 +55,9 @@ public static double turretAimKP = 0.00065;
     public static double LaunchPower = 1640;
     public static double TICKS_PER_REV = 28;
 
-    public static double INTAKE_TARGET_VELOCITY = 2000;
+    public static double INTAKE_TARGET_VELOCITY = 2100;
+
+    public static double TRANSFER_VELOCITY = 1400;
 
     public static double OUTTAKE_TARGET_VELOCITY = -2000;
     public static double INTAKE_BURST_SHOT = 2800;
@@ -87,8 +89,8 @@ public static double turretAimKP = 0.00065;
     public static double launchD = 0;
     public static double launchF = 15;
 
-    public static double liftUpRight = 0.17;
-    public static double liftDownRight = 0.0;
+    public static double hatchOpen = 0.17;
+    public static double hatchClosed = 0.0;
 
     public static double liftUpLeft = 0.0;
     public static double liftDownLeft = 0.15;

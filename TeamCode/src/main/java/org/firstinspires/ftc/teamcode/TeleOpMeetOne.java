@@ -65,17 +65,13 @@ public class TeleOpMeetOne extends LinearOpMode {
         //Drive
         drivetrain.stopAndResetEncoders();
 
-        launcherSubsystemRookieBot.liftDownLeft();
-        launcherSubsystemRookieBot.liftDownRight();
-
-
         // Wait for the game to start (driver presses PLAY)
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         //panelsTelemetry.update();
         //for (int i = 0; i < veloHistory.length; i++) veloHistory[i] = nearestBase * 30.48;
         waitForStart();
-       // launcherSubsystemRookieBot.setHatchVelocity(0);
+        // launcherSubsystemRookieBot.setHatchVelocity(0);
 
 
         // run until the end of the match (driver presses STOP)
@@ -200,8 +196,7 @@ public class TeleOpMeetOne extends LinearOpMode {
 
             if (gamepad1.right_trigger > 0) {
                 launcherSubsystemRookieBot.setIntakeVelocity(INTAKE_TARGET_VELOCITY);
-            }
-            else if (gamepad1.left_trigger > 0) {
+            } else if (gamepad1.left_trigger > 0) {
                 launcherSubsystemRookieBot.setIntakeVelocity(OUTTAKE_TARGET_VELOCITY);
             } else {
                 launcherSubsystemRookieBot.setIntakeVelocity(0);
@@ -210,18 +205,15 @@ public class TeleOpMeetOne extends LinearOpMode {
             //---------------------------------------GAMEPAD-2-----------------------
 
             if (gamepad2.x) {
-                if (launcherSubsystemRookieBot.getLauncherVelocity() >= minVelocity) {
-                    launcherSubsystemRookieBot.liftUpLeft();
-                    launcherSubsystemRookieBot.liftUpRight();
-                } /*else {
-                    launcherSubsystemRookieBot.liftDownLeft();
-                    launcherSubsystemRookieBot.liftDownRight();
-                } */
+                launcherSubsystemRookieBot.hatchOpen();
+               // launcherSubsystemRookieBot.setTransferVelocity(TRANSFER_VELOCITY);
             } else {
-                launcherSubsystemRookieBot.liftDownLeft();
-                launcherSubsystemRookieBot.liftDownRight();
+                launcherSubsystemRookieBot.hatchClosed();
             }
 
+          /*  if (gamepad1.rightTriggerWasReleased() || gamepad2.xWasReleased()) {
+                launcherSubsystemRookieBot.setTransferVelocity(0);
+            } */
 
            /* else if (burstShotsRemaining > 0) {
                 launcherSubsystemRookieBot.setIntakeVelocity(INTAKE_TARGET_VELOCITY);
@@ -295,11 +287,11 @@ public class TeleOpMeetOne extends LinearOpMode {
                  */
 
 
-            //compares calculated power with max power. sets to lower number
+                //compares calculated power with max power. sets to lower number
 
 
-            //  double t = Math.sqrt((distanceFeet - nearestBase) / (farthestBase - nearestBase));
-            //  autoLaunchPower = TELE_CLOSE_LAUNCH + t * (FAR_LAUNCH_POWER - TELE_CLOSE_LAUNCH);
+                //  double t = Math.sqrt((distanceFeet - nearestBase) / (farthestBase - nearestBase));
+                //  autoLaunchPower = TELE_CLOSE_LAUNCH + t * (FAR_LAUNCH_POWER - TELE_CLOSE_LAUNCH);
 
            /* } else {
                 if (burstShotsRemaining == 0) {
@@ -307,63 +299,64 @@ public class TeleOpMeetOne extends LinearOpMode {
                 }
             } */
 
-            if (gamepad2.left_trigger > 0) {
-                launcherSubsystemRookieBot.setLauncherVelocity(LaunchPower);
-            } else {
-                launcherSubsystemRookieBot.setLauncherVelocity(0);
-            }
+                if (gamepad2.left_trigger > 0) {
+                    launcherSubsystemRookieBot.setLauncherVelocity(LaunchPower);
+                } else {
+                    launcherSubsystemRookieBot.setLauncherVelocity(0);
+                }
 
-            if (gamepad2.dpad_up) {//FAR
-                LaunchPower = FAR_LAUNCH_POWER;//was 1500, then 1410, 1300
-                minVelocity = FAR_MIN_VELOCITY;
-            } else if (gamepad2.dpad_left) {//MIDDLE DISTANCE
-                LaunchPower = MID_LAUNCH_POWER;//Was 1225, 1160
-                minVelocity = MID_MIN_VELOCITY;//was 1175
-            } else if (gamepad2.dpad_down) {//CLOSE
-                LaunchPower = TELE_CLOSE_LAUNCH;//Was 1225
-                minVelocity = TELE_CLOSE_MIN_LAUNCH;//was 1175, 1060
-            }
+                if (gamepad2.dpad_up) {//FAR
+                    LaunchPower = FAR_LAUNCH_POWER;//was 1500, then 1410, 1300
+                    minVelocity = FAR_MIN_VELOCITY;
+                } else if (gamepad2.dpad_left) {//MIDDLE DISTANCE
+                    LaunchPower = MID_LAUNCH_POWER;//Was 1225, 1160
+                    minVelocity = MID_MIN_VELOCITY;//was 1175
+                } else if (gamepad2.dpad_down) {//CLOSE
+                    LaunchPower = TELE_CLOSE_LAUNCH;//Was 1225
+                    minVelocity = TELE_CLOSE_MIN_LAUNCH;//was 1175, 1060
+                }
 //---------------------------------------------------------Telemetry-------------------------------
-            //Figure RPM
-            //Launcher
-            double launcherVelocity = launcherSubsystemRookieBot.getLauncherVelocity();
-            double launchAsstVelocity = launcherSubsystemRookieBot.getLaunchAsstVelocity();
-            double intakeVelocity = launcherSubsystemRookieBot.getIntakeVelocity();
-            //Launcher
-            double launcherPRM = (launcherVelocity / TICKS_PER_REV) * 60;
-            double launchAsstRPM = (launchAsstVelocity / TICKS_PER_REV) * 60;
-            //Intake
-            double intakeRPM = (intakeVelocity / TICKS_PER_REV) * 60;
+                //Figure RPM
+                //Launcher
+                double launcherVelocity = launcherSubsystemRookieBot.getLauncherVelocity();
+                double launchAsstVelocity = launcherSubsystemRookieBot.getLaunchAsstVelocity();
+                double intakeVelocity = launcherSubsystemRookieBot.getIntakeVelocity();
+                //Launcher
+                double launcherPRM = (launcherVelocity / TICKS_PER_REV) * 60;
+                double launchAsstRPM = (launchAsstVelocity / TICKS_PER_REV) * 60;
+                //Intake
+                double intakeRPM = (intakeVelocity / TICKS_PER_REV) * 60;
 
-            //Raw Speed
-            //Drive
-            //Launcher
-            telemetry.addData("-----------Launch Distance", "");
-            //telemetry.addData("Goal Distance Feet","%2f",distanceFeet == -1 ? 0.0:distanceFeet);
-            telemetry.addData("Auto Launch Power", "%2f", autoLaunchPower);
-            telemetry.addData("Manual Override", manualPowerOverride ? "ON" : "OFF");
-            telemetry.addData("Launcher", "%2f", launcherVelocity);
-            telemetry.addData("Launch Asst", "%2f", launchAsstVelocity);
-            //panelsTelemetry.addData("Launcher Velocity", launcherVelocity);
-            //panelsTelemetry.addData("Launch Asst Velocity", launchAsstVelocity);
-            //Intake
-
-
-            //RPM
-            //Drive
-            telemetry.addData("-----RPM----", "");
-            //Launcher
-            telemetry.addData("LaunchLeft RPM", "%2f", launcherPRM);
-            telemetry.addData("LaunchRight RPM", "%2f", launchAsstRPM);
-            //Intake
-            telemetry.addData("Actual Intake Velocity", "%2f", launcherSubsystemRookieBot.getIntakeVelocity());
-            telemetry.addData("Expected Intake Velocity", INTAKE_TARGET_VELOCITY);
+                //Raw Speed
+                //Drive
+                //Launcher
+                telemetry.addData("-----------Launch Distance", "");
+                //telemetry.addData("Goal Distance Feet","%2f",distanceFeet == -1 ? 0.0:distanceFeet);
+                telemetry.addData("Auto Launch Power", "%2f", autoLaunchPower);
+                telemetry.addData("Manual Override", manualPowerOverride ? "ON" : "OFF");
+                telemetry.addData("Launcher", "%2f", launcherVelocity);
+                telemetry.addData("Launch Asst", "%2f", launchAsstVelocity);
+                //panelsTelemetry.addData("Launcher Velocity", launcherVelocity);
+                //panelsTelemetry.addData("Launch Asst Velocity", launchAsstVelocity);
+                //Intake
 
 
-            telemetry.update();
-            //panelsTelemetry.update();
+                //RPM
+                //Drive
+                telemetry.addData("-----RPM----", "");
+                //Launcher
+                telemetry.addData("LaunchLeft RPM", "%2f", launcherPRM);
+                telemetry.addData("LaunchRight RPM", "%2f", launchAsstRPM);
+                //Intake
+                telemetry.addData("Actual Intake Velocity", "%2f", launcherSubsystemRookieBot.getIntakeVelocity());
+                telemetry.addData("Expected Intake Velocity", INTAKE_TARGET_VELOCITY);
 
-            //aprilTagWebcam.stop();
+
+                telemetry.update();
+                //panelsTelemetry.update();
+
+                //aprilTagWebcam.stop();
+
 
         }
     }

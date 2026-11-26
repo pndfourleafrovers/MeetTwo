@@ -93,8 +93,6 @@ public class RedUpShoot extends OpMode {
 
         launcherSubsystem = new LauncherSubsystemRookieBot(hardwareMap);
 
-        launcherSubsystem.liftDownLeft();
-        launcherSubsystem.liftDownRight();
     }
 
     @Override
@@ -171,16 +169,12 @@ public class RedUpShoot extends OpMode {
             case SHOOT:
                 if(launcherSubsystem.isLauncherReady() && launchTimer.seconds() > TIME_BETWEEN_SHOTS){
                     feederTimer.reset();
-                    launcherSubsystem.liftUpLeft();
-                    launcherSubsystem.liftUpRight();
                     autoState = AutoState.SHOT_COUNT;
                 }
                 break;
 
             case SHOT_COUNT:
                 if(feederTimer.seconds() > LIFT_TIME){
-                    launcherSubsystem.liftDownLeft();
-                    launcherSubsystem.liftDownRight();
                     shotsToFire--;
 
                     if (shotsToFire > 0) {

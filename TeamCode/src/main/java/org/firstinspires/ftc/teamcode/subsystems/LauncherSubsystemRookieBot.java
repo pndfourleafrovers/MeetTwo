@@ -7,15 +7,9 @@ import static org.firstinspires.ftc.teamcode.subsystems.Constants.launchD;
 import static org.firstinspires.ftc.teamcode.subsystems.Constants.launchF;
 import static org.firstinspires.ftc.teamcode.subsystems.Constants.launchI;
 import static org.firstinspires.ftc.teamcode.subsystems.Constants.launchP;
-import static org.firstinspires.ftc.teamcode.subsystems.Constants.liftDownLeft;
-import static org.firstinspires.ftc.teamcode.subsystems.Constants.liftDownRight;
-import static org.firstinspires.ftc.teamcode.subsystems.Constants.liftUpLeft;
-import static org.firstinspires.ftc.teamcode.subsystems.Constants.liftUpRight;
-//import static org.firstinspires.ftc.teamcode.subsystems.Constants.liftDown;
-//import static org.firstinspires.ftc.teamcode.subsystems.Constants.liftUp;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -25,19 +19,22 @@ public class LauncherSubsystemRookieBot {
     private DcMotorEx launcher;
     private DcMotorEx launchAsst;
     private DcMotorEx intake;
-    private Servo FlipperLeft;
-    private Servo FlipperRight;
+    private Servo FlowerLeft;
+    private Servo FlowerRight;
+    private Servo Hatch;
+
 
     public LauncherSubsystemRookieBot(HardwareMap hardwareMap) {
-        intake = hardwareMap.get(DcMotorEx.class, "Intake");
-        FlipperLeft = hardwareMap.get(Servo.class, "FlipperLeft");
-        FlipperRight = hardwareMap.get(Servo.class, "FlipperRight");
-        launcher = hardwareMap.get(DcMotorEx.class, "LaunchLeft");
-        launchAsst = hardwareMap.get(DcMotorEx.class, "LaunchRight");
+        intake = hardwareMap.get(DcMotorEx.class, "Intake_motor");
+        launcher = hardwareMap.get(DcMotorEx.class, "Launcher_motor");
+        launchAsst = hardwareMap.get(DcMotorEx.class, "Transfer_motor");
+        Hatch = hardwareMap.get(Servo.class, "Hatch_servo");
+        FlowerLeft = hardwareMap.get(Servo.class, "Left_flower_servo");
+        FlowerRight = hardwareMap.get(Servo.class, "Right_flower_servo");
 
-        launcher.setDirection(DcMotorEx.Direction.REVERSE);
-        launchAsst.setDirection(DcMotorEx.Direction.FORWARD);
-        intake.setDirection(DcMotor.Direction.REVERSE);
+        launcher.setDirection(DcMotorEx.Direction.FORWARD);
+        launchAsst.setDirection(DcMotorEx.Direction.REVERSE);
+        intake.setDirection(DcMotor.Direction.FORWARD);
 
         launcher.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         launchAsst.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -59,7 +56,7 @@ public class LauncherSubsystemRookieBot {
 
     public void setLauncherVelocity(double velocity) {
         launcher.setVelocity(velocity);
-        launchAsst.setVelocity(velocity);
+       // launchAsst.setVelocity(velocity);
     }
 
     public double getLauncherVelocity() {
@@ -71,25 +68,24 @@ public class LauncherSubsystemRookieBot {
     public boolean isCloseLauncherReady() {
         return launcher.getVelocity() >= CLOSE_MIN_VELOCITY;
     }
-    public void setLiftPosition(double position) {
-        FlipperLeft.setPosition(position);
-    }
-    public void liftUpLeft() {
-        FlipperLeft.setPosition(liftUpLeft);
-    }
-    public void liftDownLeft() {
-        FlipperLeft.setPosition(liftDownLeft);
+
+    public void hatchOpen() {
+        Hatch.setPosition(hatchOpen);
+        //launchAsst.setVelocity(TRANSFER_VELOCITY);
     }
 
-    public void liftUpRight() {
-        FlipperRight.setPosition(liftUpRight);
-    }
-    public void liftDownRight() {
-        FlipperRight.setPosition(liftDownRight);
+    public void hatchClosed() {
+        Hatch.setPosition(hatchClosed);
+        //launchAsst.setVelocity(0);
     }
 
     public void setIntakeVelocity(double velocity) {
         intake.setVelocity(velocity);
+        launchAsst.setVelocity(velocity);
+    }
+
+    public void setTransferVelocity(double velocity) {
+        launchAsst.setVelocity(velocity);
     }
 
 

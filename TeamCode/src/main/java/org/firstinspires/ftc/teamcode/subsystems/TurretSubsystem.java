@@ -38,8 +38,8 @@ public class TurretSubsystem {
      * @param hardwareMap The hardware map object from the op mode.
      */
     public TurretSubsystem(HardwareMap hardwareMap) {
-        servoFront = hardwareMap.get(Servo.class, "ServoFront");
-        servoBack = hardwareMap.get(Servo.class, "ServoBack");
+        servoFront = hardwareMap.get(Servo.class, "Turret_right_servo");
+        servoBack = hardwareMap.get(Servo.class, "Turret_left_servo");
 
         // Initialize to the midpoint (150 deg).
         centerTurret();
